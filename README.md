@@ -68,8 +68,24 @@ npm run test
 
 The output should look like the following:
 ```
-insert jest results here
+> playwright-react-typescript-jest-example@1.0.0 test /playwright-react-typescript-jest-example
+> jest
+
+ PASS  e2e/iphone.spec.ts
+ PASS  e2e/smoke.spec.ts (7.213s)
+ PASS  e2e/form-success.spec.ts (8.548s)
+ PASS  e2e/form-error.spec.ts (8.548s)
+
+Test Suites: 4 passed, 4 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        9.941s
+Ran all test suites.
 ```
+
+You can additionally find screenhots taken of each run the the `e2e/screenshots/` directory.
+
+The command `npm run purge:ss` will remove all `PNG` images from the screenshots directory, additionally the command `npm run test:clean` will remove all images then run the tests again.
 
 
 ---
