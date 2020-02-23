@@ -60,7 +60,8 @@ module.exports = [
     stats: "minimal",
     devServer: {
       contentBase: "./dist",
-      writeToDisk: true
+      writeToDisk: true,
+      port: 9091
     }
   }
 ];

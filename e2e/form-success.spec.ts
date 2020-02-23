@@ -7,7 +7,7 @@ describe("Form Tests - all Browsers", () => {
       const browser = await playwright[browserType].launch();
       const context = await browser.newContext();
       const page = await context.newPage();
-      await page.goto("http://localhost:8080/");
+      await page.goto("http://localhost:9091/");
 
       // screenshot prior to submit
       await page.screenshot({
