@@ -1,6 +1,8 @@
 # playwright-react-typescript-jest-example
 a [react](https://github.com/facebook/react) + [typescript](https://github.com/microsoft/TypeScript) + [tailwindcss](https://github.com/tailwindcss/tailwindcss) application that uses [jest](https://github.com/facebook/jest) + [playwright](https://github.com/microsoft/playwright) for E2E testing.
 
+This repo is a POC on how to introduce [playwright](https://github.com/microsoft/playwright) into an application to meet E2E testing needs.
+
 ---
 Table of contents:
 * [problem](#problem)
