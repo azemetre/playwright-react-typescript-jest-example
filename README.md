@@ -130,6 +130,8 @@ Now compare the above to the firefox run of the `e2e/form-error.spec.ts` test:
 
 <img src="docs/assets/form-error-visible-firefox-1582484546509.png" alt="Firefox form test" width="90%" height="90%">
 
+Note the purple versus pink background colors. Depending on the devices we wrote our app to display different colors for our responsive design choices.
+
 playwright can allow us to see the visual inconsistencies between styles on environments and responsive devices.
 
 ---
