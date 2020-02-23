@@ -1,66 +1,66 @@
-const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ManifestPlugin = require("webpack-manifest-plugin");
 
-const devMode = process.env.NODE_ENV !== 'production';
+const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = [
   {
-    mode: process.env.NODE_ENV || 'development',
-    name: 'playwright-react-typescript',
-    devtool: 'source-map',
-    target: 'web',
-    entry: './src/index.tsx',
+    mode: process.env.NODE_ENV || "development",
+    name: "playwright-react-typescript",
+    target: "web",
+    entry: "./src/index.tsx",
     output: {
-      path: path.resolve(__dirname, 'dist/client'),
-      publicPath: '/dist/client/',
-      filename: '[name].js',
+      path: path.resolve(__dirname, "dist/client"),
+      publicPath: "/dist/client/",
+      filename: "[name].js"
     },
     resolve: {
-      extensions: ['.tsx', '.jsx', '.js'],
+      extensions: [".tsx", ".jsx", ".js"],
       alias: {
-        'react': path.resolve(__dirname, './node_modules/react'),
-        'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
-        '@src': path.resolve(__dirname, './src'),
-        '@components': path.resolve(__dirname, './src/components')
-      },
+        react: path.resolve(__dirname, "./node_modules/react"),
+        "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
+        "@src": path.resolve(__dirname, "./src"),
+        "@components": path.resolve(__dirname, "./src/components")
+      }
     },
     module: {
       rules: [
         {
           test: /\.tsx?$/,
-          loader: 'ts-loader',
-          exclude: [/node_modules/,]
+          loader: "ts-loader",
+          exclude: [/node_modules/]
         },
         {
           test: /\.css$/,
-          include: path.resolve(__dirname, 'src'),
-          exclude: [/node_modules/,],
+          include: path.resolve(__dirname, "src"),
+          exclude: [/node_modules/],
           use: [
-            devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-            { loader: 'css-loader', options: { importLoaders: 1 } },
-            'postcss-loader'
-          ],
-        },
-      ],
+            devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+            { loader: "css-loader", options: { importLoaders: 1 } },
+            "postcss-loader"
+          ]
+        }
+      ]
     },
     plugins: [
       new CleanWebpackPlugin(),
-      new ManifestPlugin({ fileName: '../manifest.json' }),
+      new ManifestPlugin({ fileName: "../manifest.json" }),
       new MiniCssExtractPlugin({
-        filename: devMode ? '[name].bundle.css' : '[name].[hash].css',
-        chunkFilename: '[id].css'
+        filename: devMode ? "[name].bundle.css" : "[name].[hash].css",
+        chunkFilename: "[id].css"
       }),
       new HtmlWebpackPlugin({
-        filename: '../index.html',
-        template: path.resolve(__dirname, 'public/index.html')
-      }),
+        template: path.resolve(__dirname, "public/index.html"),
+        filename: "../index.html"
+      })
     ],
-    stats: 'minimal',
+    stats: "minimal",
     devServer: {
-      contentBase: './dist',
-    },
-  },
+      contentBase: "./dist",
+      writeToDisk: true
+    }
+  }
 ];
