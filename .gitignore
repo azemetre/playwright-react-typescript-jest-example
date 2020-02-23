@@ -109,3 +109,6 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 .vscode
+
+# project specific
+e2e/screenshots/.
