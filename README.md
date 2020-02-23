@@ -49,6 +49,18 @@ Here is what the application looks like running:
 
 A form component with basic validation.
 
+**Note:** we are using [tailwindcss media queries](https://tailwindcss.com/docs/background-color/#responsive) to change the background color of the `<section>` element, as demonstrated below:
+```html
+ <! –– showing only relevant classnames ––>
+<section className="bg-purple-300 sm:bg-green-300 md:bg-blue-300 lg:bg-pink-300 flex pb-3">
+  ...
+</section
+```
+
+This allows us to see different backgrounds based on viewport size, something we can set with playwright.
+
+**Running the tests**
+
 Open another tab or window in your terminal and navigate back to the project directory, run the tests with the following command:
 ```
 npm run test
@@ -65,10 +77,48 @@ insert jest results here
 ### [solution](#solution)
 #### ([I won't give up on you](https://www.youtube.com/watch?v=Dp9FfwrbJSg#t=2m13s))
 
+**Actions**
+
+Most assertions have their selectors defined as the following:
+```js
+const label = await page.$eval("css=label", el => el.textContent);
+...
+expect(label).toEqual("Username");
+```
+This allows us to predefine DOM elements we want to assert against whether in the test file itself or as page objects.
+
+However if content is not static and the DOM changes based on user interaction our previous, you can see an example of this in the test file `e2e/form-success.spec.ts`:
+```js
+expect(await page.$eval("css=h1", el => el.textContent)).toEqual('Thank you for Submitting');
+```
+
+We can also determine what devices and browsers we want to test, as noted in the `e2e/iphone.spec.ts` file:
+```js
+const { webkit, devices } = require("playwright");
+const iPhone11 = devices["iPhone 11 Pro"];
+// skipping contents of file
+const browser = await webkit.launch();
+const context = await browser.newContext({
+  viewport: iPhone11.viewport,
+  userAgent: iPhone11.userAgent
+});
+```
+
+Now we have a proper environment to write tests for an iPhone using the webkit browser.
+
+The following is the screenshots of the `e2e/iphone.spec.ts` test:
+
+<img src="docs/assets/form-iPhone11-1582484543312.png" alt="iPhone form test" width="35%" height="35%">
+
+Now compare the above to the firefox run of the `e2e/form-error.spec.ts` test:
+
+<img src="docs/assets/form-error-visible-firefox-1582484546509.png" alt="Firefox form test" width="90%" height="90%">
+
+playwright can allow us to see the visual inconsistencies between styles on environments and responsive devices.
 
 ---
 
 ### [future](#future)
-Will include more elaborate actions to showcase how to use the [playwright](https://github.com/microsoft/playwright).
+Will include more elaborate actions to showcase how to use the [playwright](https://github.com/microsoft/playwright) API.
 
 May include examples of how integrate with screenshot capabilities with libraries to do image testing with [pixelmatch](https://github.com/mapbox/pixelmatch).
