@@ -21,7 +21,7 @@ What are E2E tests?
 >
 > [Kent C Dodds - Static vs Unit vs Integration vs E2E Testing for Frontend Apps](https://kentcdodds.com/blog/unit-vs-integration-vs-e2e-tests)
 
-While Cypress has recently started to include [multi-browser support](https://www.cypress.io/blog/2020/02/06/introducing-firefox-and-edge-support-in-cypress-4-0/), there's still an issue of veryifying scenarios across browsers such as webkit for Apple products.
+While Cypress has recently started to include [multi-browser support](https://www.cypress.io/blog/2020/02/06/introducing-firefox-and-edge-support-in-cypress-4-0/), there's still an issue of veryifying scenarios across browser engines such as webkit for Apple products.
 
 We need a way to easily verify and test behaviors across browsers. If we have a user scenario that fails for on iOS devices, we need to be able to write a regression test for it.
 
@@ -33,7 +33,7 @@ We need a way to easily verify and test behaviors across browsers. If we have a 
 ---
 
 ### [running the example](#running-the-example)
-Once finish cloning run the following command, in the project directory, to install the project dependencies:
+After cloning this repo run the following command, in the project directory, to install the project dependencies:
 ```
 npm i
 ```
@@ -57,11 +57,11 @@ A form component with basic validation.
 </section
 ```
 
-This allows us to see different backgrounds based on viewport size, something we can set with playwright.
+This allows us to see different backgrounds based on viewport size, something we can declare in our tests with playwright.
 
 **Running the tests**
 
-Open another tab or window in your terminal and navigate back to the project directory, run the tests with the following command:
+In a new tab inside your terminal, run the tests with the following command:
 ```
 npm run test
 ```
@@ -83,7 +83,7 @@ Time:        9.941s
 Ran all test suites.
 ```
 
-You can additionally find screenhots taken of each run the the `e2e/screenshots/` directory.
+You can additionally find screenhots taken of each test in the `e2e/screenshots/` directory.
 
 The command `npm run purge:ss` will remove all `PNG` images from the screenshots directory, additionally the command `npm run test:clean` will remove all images then run the tests again.
 
@@ -103,7 +103,7 @@ expect(label).toEqual("Username");
 ```
 This allows us to predefine DOM elements we want to assert against whether in the test file itself or as page objects.
 
-However if content is not static and the DOM changes based on user interaction our previous, you can see an example of this in the test file `e2e/form-success.spec.ts`:
+However if content is not static and the DOM changes based on user interaction or API requests we need to make sure our selectors are ansynchronous, you can see an example of this in the test file `e2e/form-success.spec.ts`:
 ```js
 expect(await page.$eval("css=h1", el => el.textContent)).toEqual('Thank you for Submitting');
 ```
@@ -120,7 +120,7 @@ const context = await browser.newContext({
 });
 ```
 
-Now we have a proper environment to write tests for an iPhone using the webkit browser.
+Now we have a proper environment to write tests for an iPhone using the webkit browser engine.
 
 The following is the screenshots of the `e2e/iphone.spec.ts` test:
 
@@ -130,7 +130,7 @@ Now compare the above to the firefox run of the `e2e/form-error.spec.ts` test:
 
 <img src="docs/assets/form-error-visible-firefox-1582484546509.png" alt="Firefox form test" width="90%" height="90%">
 
-Note the purple versus pink background colors. Depending on the devices we wrote our app to display different colors for our responsive design choices.
+Note the purple versus pink background colors. Depending on the devices we assert against, our app is able to display different colors for our responsive design choices.
 
 playwright can allow us to see the visual inconsistencies between styles on environments and responsive devices.
 
@@ -139,4 +139,4 @@ playwright can allow us to see the visual inconsistencies between styles on envi
 ### [future](#future)
 Will include more elaborate actions to showcase how to use the [playwright](https://github.com/microsoft/playwright) API.
 
-May include examples of how integrate with screenshot capabilities with libraries to do image testing with [pixelmatch](https://github.com/mapbox/pixelmatch).
+May include examples of how integrate screenshot capabilities with libraries to do image testing with [pixelmatch](https://github.com/mapbox/pixelmatch).
