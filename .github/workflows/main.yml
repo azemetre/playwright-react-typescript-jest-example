@@ -8,6 +8,7 @@ jobs:
       matrix:
         machines: [1, 2, 3]
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v2
       - uses: cypress-io/github-action@v2
