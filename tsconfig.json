@@ -16,11 +16,12 @@
             "@src/*": ["src/*"],
             "@components/*": ["src/components/*"]
         },
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "types": ["cypress"]
     },
     "exclude": [
         "node_modules",
-        "e2e",
+        "playwright",
         "dist"
     ]
 }

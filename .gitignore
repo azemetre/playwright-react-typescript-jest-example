@@ -111,4 +111,4 @@ dist
 .vscode
 
 # project specific
-e2e/screenshots/*.png
+playwright/screenshots/*.png

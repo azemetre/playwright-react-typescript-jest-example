@@ -1,142 +1,79 @@
-# playwright-react-typescript-jest-example
-a [react](https://github.com/facebook/react) + [typescript](https://github.com/microsoft/TypeScript) + [tailwindcss](https://github.com/tailwindcss/tailwindcss) application that uses [jest](https://github.com/facebook/jest) + [playwright](https://github.com/microsoft/playwright).
+# Playwright vs Cypress comparison in a simple React Typescript app
 
-This repo is a POC on how to introduce [playwright](https://github.com/microsoft/playwright) into an application to meet E2E testing needs.
+This repo is a POC of [Playwright](https://playwright.dev/docs/why-playwright) vs [Cypress](https://www.cypress.io/)
 
----
-Table of contents:
-* [problem](#problem)
-* [why](#why)
-* [running the example](#running-the-example)
-* [solution](#solution)
-* [future](#future)
----
+## Table of contents
 
-### [problem](#problem)
-It is common for many projects to use [Cypress](https://github.com/cypress-io/cypress) for writing E2E tests in order to cover all functionality for users.
+* [Setup](#Setup)
+* [Playwright](#Playwright)
+* [Cypress](#Cypress)
 
-What are E2E tests?
+<br></br>
 
-> Typically these will run the entire application (both frontend and backend) and your test will interact with the app just like a typical user would
->
-> [Kent C Dodds - Static vs Unit vs Integration vs E2E Testing for Frontend Apps](https://kentcdodds.com/blog/unit-vs-integration-vs-e2e-tests)
+## [Setup](#Setup)
 
-While Cypress has recently started to include [multi-browser support](https://www.cypress.io/blog/2020/02/06/introducing-firefox-and-edge-support-in-cypress-4-0/), there's still an issue of veryifying scenarios across browser engines such as webkit for Apple products.
-
-We need a way to easily verify and test behaviors across browsers. If we have a user scenario that fails for on iOS devices, we need to be able to write a regression test for it.
-
----
-
-### [why](#why)
-[playwright](https://github.com/microsoft/playwright) offers testing capabilities across multiple browsers and environments. Unlike Selenium Webdriver, [playwright](https://github.com/microsoft/playwright) has an easier to grok API that allows for a better developer experience.
-
----
-
-### [running the example](#running-the-example)
 After cloning this repo run the following command, in the project directory, to install the project dependencies:
-```
+
+```bash
 npm i
 ```
 
-After installing the dependencies, start the application with the following command:
-```
+Start the app
+
+```bash
 npm start
 ```
 
-Here is what the application looks like running:
+<details><summary>Here is what the application looks like running:</summary>
 
 <img src="docs/assets/app-running.gif" alt="form application running" width="600">
 
 A form component with basic validation.
 
-**Note:** we are using [tailwindcss media queries](https://tailwindcss.com/docs/background-color/#responsive) to change the background color of the `<section>` element, as demonstrated below:
-```html
- <! –– showing only relevant classnames ––>
-<section className="bg-purple-300 sm:bg-green-300 md:bg-blue-300 lg:bg-pink-300 flex pb-3">
-  ...
-</section
-```
+**Note:** we are using [tailwindcss media queries](https://tailwindcss.com/docs/background-color/#responsive) to change the background color of the `<sectiofbackgrounds based on viewport size, something we can declare in our tests with playwright.
+</details>
 
-This allows us to see different backgrounds based on viewport size, something we can declare in our tests with playwright.
+### [Work around the Playwright MacOS permission issue](https://github.com/puppeteer/puppeteer/issues/4752#issuecomment-524086077)
 
-**Running the tests**
+This will prevent the dialog "*Do you want the application “Chromium.app” to accept incoming network connection?*"
+
+Alternatively you can turn off the firewall.
+
+<br></br>
+
+## [Playwright](#Playwright)
 
 In a new tab inside your terminal, run the tests with the following command:
-```
-npm run test
-```
 
-The output should look like the following:
-```
-> playwright-react-typescript-jest-example@1.0.0 test /playwright-react-typescript-jest-example
-> jest
-
- PASS  e2e/iphone.spec.ts
- PASS  e2e/smoke.spec.ts (7.213s)
- PASS  e2e/form-success.spec.ts (8.548s)
- PASS  e2e/form-error.spec.ts (8.548s)
-
-Test Suites: 4 passed, 4 total
-Tests:       4 passed, 4 total
-Snapshots:   0 total
-Time:        9.941s
-Ran all test suites.
+```bash
+npx playwright test
 ```
 
-You can additionally find screenhots taken of each test in the `e2e/screenshots/` directory.
+The Jest runner executes 4 specs in parallel. The output should look like the following:
 
-The command `npm run purge:ss` will remove all `PNG` images from the screenshots directory, additionally the command `npm run test:clean` will remove all images then run the tests again.
+```bash
+npx playwright test                                                                           08:28:42
+Using config at /Users/murat/playwright/playwright-react-typescript-jest-example/playwright.config.ts
 
+Running 4 tests using 4 workers
 
----
+  ✓  e2e/form-error.spec.ts:6:3 › Form Tests - all Browsers Unable to Submit Empty Form (4s)
+  ✓  e2e/form-success.spec.ts:5:3 › Form Tests - all Browsers Unable to Submit Empty Form (4s)
+  ✓  e2e/iphone.spec.ts:6:3 › Form Tests - all Browsers Unable to Submit Empty Form (703ms)
+  ✓  e2e/smoke.spec.ts:5:3 › Smoke Tests - all Browsers Form Content Renders (4s)
 
-### [solution](#solution)
-#### ([I won't give up on you](https://www.youtube.com/watch?v=Dp9FfwrbJSg#t=2m13s))
-
-**Actions**
-
-Most assertions have their selectors defined as the following:
-```js
-const label = await page.$eval("css=label", el => el.textContent);
-...
-expect(label).toEqual("Username");
-```
-This allows us to predefine DOM elements we want to assert against whether in the test file itself or as page objects.
-
-However if content is not static and the DOM changes based on user interaction or API requests we need to make sure our selectors are ansynchronous, you can see an example of this in the test file `e2e/form-success.spec.ts`:
-```js
-expect(await page.$eval("css=h1", el => el.textContent)).toEqual('Thank you for Submitting');
+  4 passed (5s)
 ```
 
-We can also determine what devices and browsers we want to test, as noted in the `e2e/iphone.spec.ts` file:
-```js
-const { webkit, devices } = require("playwright");
-const iPhone11 = devices["iPhone 11 Pro"];
-// skipping contents of file
-const browser = await webkit.launch();
-const context = await browser.newContext({
-  viewport: iPhone11.viewport,
-  userAgent: iPhone11.userAgent
-});
-```
+* To execute tests with debugger, use [Playwright Inspector](https://playwright.dev/docs/inspector/).
 
-Now we have a proper environment to write tests for an iPhone using the webkit browser engine.
+  ```bash
+  PWDEBUG=1 npx playwright test
+  ```
 
-The following is the screenshots of the `e2e/iphone.spec.ts` test:
+* The tests are headed for your visibility. To execute tests headlessly, remove `{ headless: false }` from `launch()` functions at the spec files. In Playwright this is controlled at test level, and headless is the default. [Reference](https://playwright.dev/docs/debug#run-in-headed-mode).
 
-<img src="docs/assets/form-iPhone11-1582484543312.png" alt="iPhone form test" width="35%" height="35%">
+<br></br>
 
-Now compare the above to the firefox run of the `e2e/form-error.spec.ts` test:
+## [Cypress](#Cypress)
 
-<img src="docs/assets/form-error-visible-firefox-1582484546509.png" alt="Firefox form test" width="90%" height="90%">
-
-Note the purple versus pink background colors. Depending on the devices we assert against, our app is able to display different colors for our responsive design choices.
-
-playwright can allow us to see the visual inconsistencies between styles on environments and responsive devices.
-
----
-
-### [future](#future)
-Will include more elaborate actions to showcase how to use the [playwright](https://github.com/microsoft/playwright) API.
-
-May include examples of how integrate screenshot capabilities with libraries to do image testing with [pixelmatch](https://github.com/mapbox/pixelmatch).
