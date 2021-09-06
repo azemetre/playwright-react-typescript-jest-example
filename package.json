@@ -7,7 +7,10 @@
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
     "watch": "cross-env NODE_ENV=develop webpack --watch",
-    "purge:ss": "rimraf playwright/screenshots/*.png"
+    "purge:ss": "rimraf playwright/screenshots/*.png",
+    "playwright": "playwright test",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "repository": {
     "type": "git",

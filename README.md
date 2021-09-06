@@ -1,6 +1,6 @@
 # Playwright vs Cypress comparison in a simple React Typescript app
 
-This repo is a POC of [Playwright](https://playwright.dev/docs/why-playwright) vs [Cypress](https://www.cypress.io/)
+This repo is a light comparison of [Playwright](https://playwright.dev/docs/why-playwright) vs [Cypress](https://www.cypress.io/).
 
 ## Table of contents
 
@@ -43,37 +43,39 @@ Alternatively you can turn off the firewall.
 
 ## [Playwright](#Playwright)
 
+The tests are under `./playwright`.
+
 In a new tab inside your terminal, run the tests with the following command:
 
 ```bash
-npx playwright test
+npm run playwright
 ```
 
-The Jest runner executes 4 specs in parallel. The output should look like the following:
 
-```bash
-npx playwright test                                                                           08:28:42
-Using config at /Users/murat/playwright/playwright-react-typescript-jest-example/playwright.config.ts
-
-Running 4 tests using 4 workers
-
-  ✓  e2e/form-error.spec.ts:6:3 › Form Tests - all Browsers Unable to Submit Empty Form (4s)
-  ✓  e2e/form-success.spec.ts:5:3 › Form Tests - all Browsers Unable to Submit Empty Form (4s)
-  ✓  e2e/iphone.spec.ts:6:3 › Form Tests - all Browsers Unable to Submit Empty Form (703ms)
-  ✓  e2e/smoke.spec.ts:5:3 › Smoke Tests - all Browsers Form Content Renders (4s)
-
-  4 passed (5s)
-```
-
-* To execute tests with debugger, use [Playwright Inspector](https://playwright.dev/docs/inspector/).
+To execute tests with debugger, use [Playwright Inspector](https://playwright.dev/docs/inspector/).
 
   ```bash
-  PWDEBUG=1 npx playwright test
+  PWDEBUG=1 npm run playwright
   ```
 
-* The tests are headed for your visibility. To execute tests headlessly, remove `{ headless: false }` from `launch()` functions at the spec files. In Playwright this is controlled at test level, and headless is the default. [Reference](https://playwright.dev/docs/debug#run-in-headed-mode).
+> Playwright executes specs in parallel, this is why you see browsers launching simultaneously.
+
+> The tests are headed for your visibility. To execute tests headlessly, remove `{ headless: false }` from `launch()` functions at the spec files. In Playwright this is controlled at test level, and headless is the default. [Reference](https://playwright.dev/docs/debug#run-in-headed-mode).
 
 <br></br>
 
 ## [Cypress](#Cypress)
 
+The tests are under `./cypress/integration`.
+
+To start the test runner:
+
+```bash
+npm run cypress:open
+```
+
+To run headlessly:
+
+```bash
+npm run cypress:run
+```

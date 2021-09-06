@@ -11,19 +11,16 @@ test.describe('Form Tests', () => {
       const page = await context.newPage();
       await page.goto('http://localhost:9091/');
 
-      // action to trigger form error
       await page.click('css=button');
 
-      // defining selectors
       const errorMsg = await page.$eval('css=p', el => el.textContent);
 
-      // verifying elements exist
       expect(errorMsg).toEqual('a username is required');
 
-      // screenshot of error
       await page.screenshot({
         path: `playwright/screenshots/form-error-visible-${browserType}-${new Date().valueOf()}.png`
       });
+
       await browser.close();
     }
   });
