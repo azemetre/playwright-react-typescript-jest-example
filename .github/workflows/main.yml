@@ -7,10 +7,11 @@ jobs:
         machines: [1, 2]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: cypress-io/github-action@v1
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
         with:
           record: true
           parallel: true
+          start: npm start
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.cy_token }}
