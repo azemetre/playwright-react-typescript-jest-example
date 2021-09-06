@@ -1,7 +1,7 @@
 {
-  "name": "playwright-react-typescript-jest-example",
+  "name": "playwright-vs-cypress",
   "version": "1.0.0",
-  "description": "an example of how to use playwright with a modern react + typescript app",
+  "description": "a simple comparison of Playwright and Cypress",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development",
@@ -18,6 +18,7 @@
   },
   "keywords": [
     "playwright",
+    "cypress",
     "testing",
     "javascript",
     "typescript",
