@@ -11,13 +11,15 @@ test.describe('Smoke Tests', () => {
       const page = await context.newPage();
       await page.goto('http://localhost:9091/');
 
-      const head = await page.$eval('css=h1', el => el.textContent);
-      const label = await page.$eval('css=label', el => el.textContent);
-      const button = await page.$eval('css=button', el => el.textContent);
+      await page.mainFrame(); // needed in CI!
 
       expect(await page.title()).toEqual(
         'playwright with react + typescript + webpack'
-      );
+        );
+
+      const button = await page.$eval('css=button', el => el.textContent);
+      const label = await page.$eval('css=label', el => el.textContent);
+      const head = await page.$eval('css=h1', el => el.textContent);
 
       expect(head).toEqual('Please Submit the Form');
       expect(label).toEqual('Username');

@@ -1,8 +1,10 @@
 name: Parallel tests
 on: [push]
 jobs:
+
   cypress-run:
     strategy:
+      # uses 3 CI machines to run tests in parallel
       matrix:
         machines: [1, 2, 3]
     runs-on: ubuntu-latest
@@ -10,8 +12,22 @@ jobs:
       - uses: actions/checkout@v2
       - uses: cypress-io/github-action@v2
         with:
+          # waits for the server to start before running the tests
+          # records the test execution to Cypress Dashboard
+          start: npm start
           record: true
           parallel: true
-          start: npm start
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+  # Playwright doesn't have a convenience to start the local server prior to running the tests
+  # therefore we are using https://www.npmjs.com/package/start-server-and-test
+  # waits until local server is ready, then starts the tests, afterwards shuts down the server
+  playwright-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - uses: microsoft/playwright-github-action@v1
+      - name: Install dependencies and run tests
+        run: npm install && npm run playwright:ci
