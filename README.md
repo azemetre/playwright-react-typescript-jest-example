@@ -53,15 +53,15 @@ npm run playwright
 ```
 
 
-To execute tests with debugger, use [Playwright Inspector](https://playwright.dev/docs/inspector/).
+There are two ways to view the UI while executing Playwright tests:
 
-  ```bash
-  PWDEBUG=1 npm run playwright
-  ```
+1. To execute tests with debugger, use [Playwright Inspector](https://playwright.dev/docs/inspector/).
 
-> Playwright executes specs in parallel, this is why you see browsers launching simultaneously.
+    ```bash
+    PWDEBUG=1 npm run playwright
+    ```
 
-> The tests are headed for your visibility. To execute tests headlessly, remove `` from `launch()` functions at the spec files. In Playwright this is controlled at test level, and headless is the default. [Reference](https://playwright.dev/docs/debug#run-in-headed-mode).
+2. Add `{ headless: false }` to [chromium launch function](https://playwright.dev/docs/debug#run-in-headed-mode) in the spec file.
 
 <br></br>
 
