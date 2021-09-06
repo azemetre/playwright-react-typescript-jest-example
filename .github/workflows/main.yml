@@ -14,8 +14,9 @@ jobs:
       - uses: cypress-io/github-action@v2
         with:
           # waits for the server to start before running the tests
-          # records the test execution to Cypress Dashboard
+          # records the parallel test execution to Cypress Dashboard
           start: npm start
+          wait-on: 'http://localhost:9091'
           record: true
           parallel: true
         env:
