@@ -24,10 +24,13 @@ jobs:
   # therefore we are using https://www.npmjs.com/package/start-server-and-test
   # waits until local server is ready, then starts the tests, afterwards shuts down the server
   playwright-run:
+    needs: cypress-run
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
       - uses: microsoft/playwright-github-action@v1
-      - name: Install dependencies and run tests
-        run: npm install && npm run playwright:ci
+      - name: Install dependencies
+        run: npm install
+      - name: start the server and run the tests against it
+        run: npm run playwright:ci
