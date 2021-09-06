@@ -7,6 +7,7 @@ This is a PoC for [Playwright](https://playwright.dev/docs/why-playwright) vs [C
 * [Setup](#Setup)
 * [Playwright](#Playwright)
 * [Cypress](#Cypress)
+* [CI Test Results](#CI_Test_Results)
 
 <br></br>
 
@@ -79,3 +80,11 @@ To run headlessly:
 ```bash
 npm run cypress:run
 ```
+
+<br></br>
+
+## [CI Test results](#CI-Test-results)
+
+[Cypress Dashboard](https://dashboard.cypress.io/projects/mwqojo) - uses 3 parallel machines.
+
+[Github Actions](https://github.com/muratkeremozcan/playwright-vs-cypress/actions)
