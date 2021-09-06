@@ -61,7 +61,7 @@ To execute tests with debugger, use [Playwright Inspector](https://playwright.de
 
 > Playwright executes specs in parallel, this is why you see browsers launching simultaneously.
 
-> The tests are headed for your visibility. To execute tests headlessly, remove `{ headless: false }` from `launch()` functions at the spec files. In Playwright this is controlled at test level, and headless is the default. [Reference](https://playwright.dev/docs/debug#run-in-headed-mode).
+> The tests are headed for your visibility. To execute tests headlessly, remove `` from `launch()` functions at the spec files. In Playwright this is controlled at test level, and headless is the default. [Reference](https://playwright.dev/docs/debug#run-in-headed-mode).
 
 <br></br>
 

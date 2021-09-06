@@ -27,7 +27,6 @@
     "webpack",
     "jest"
   ],
-  "author": "Aaron Zemetres",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/azemetre/playwright-react-typescript-jest-example/issues"

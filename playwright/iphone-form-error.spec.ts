@@ -4,7 +4,7 @@ const iPhone11 = devices['iPhone 11 Pro'];
 
 test.describe('Form Tests', () => {
   test('Unable to Submit Empty Form', async () => {
-    const browser = await webkit.launch({ headless: false });
+    const browser = await webkit.launch();
     const context = await browser.newContext({
       viewport: iPhone11.viewport,
       userAgent: iPhone11.userAgent
