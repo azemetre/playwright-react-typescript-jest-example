@@ -1,6 +1,6 @@
-# Playwright vs Cypress comparison in a simple React TS app
+# Playwright vs Cypress
 
-This repo is a light comparison of [Playwright](https://playwright.dev/docs/why-playwright) vs [Cypress](https://www.cypress.io/).
+This is a PoC for [Playwright](https://playwright.dev/docs/why-playwright) vs [Cypress](https://www.cypress.io/) a simple React TS app.
 
 ## Table of contents
 

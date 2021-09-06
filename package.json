@@ -1,7 +1,7 @@
 {
   "name": "playwright-vs-cypress",
   "version": "1.0.0",
-  "description": "a simple comparison of Playwright and Cypress",
+  "description": "a PoC for Playwright vs Cypress in a simple React TS app.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development",

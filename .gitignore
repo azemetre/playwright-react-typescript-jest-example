@@ -112,3 +112,4 @@ dist
 
 # project specific
 **/screenshots/**
+cypress/videos
