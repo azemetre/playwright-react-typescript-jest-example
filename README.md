@@ -103,7 +103,7 @@ expect(label).toEqual("Username");
 ```
 This allows us to predefine DOM elements we want to assert against whether in the test file itself or as page objects.
 
-However if content is not static and the DOM changes based on user interaction or API requests we need to make sure our selectors are ansynchronous, you can see an example of this in the test file `e2e/form-success.spec.ts`:
+However if content is not static and the DOM changes based on user interaction or API requests we need to make sure our selectors are asynchronous, you can see an example of this in the test file `e2e/form-success.spec.ts`:
 ```js
 expect(await page.$eval("css=h1", el => el.textContent)).toEqual('Thank you for Submitting');
 ```
